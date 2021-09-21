@@ -99,6 +99,7 @@ function simulate(
         output_path::Union{AbstractString, Nothing} = nothing,
         print_me::Bool = true,
         store_me::Bool = true,
+        probs,
         kwargs...
 )
 
@@ -521,10 +522,10 @@ function simulate(
 
                         for u in getvertices(h, he.first)
                             if v != u.first
-                                # if u and v have been together in the same place
-                                # in a time interval less than δ
+                                # if u and v have been together in the same place 
+                                # in a time interval less than δ && they actually meet
                                 # then it counts ad a direct contact
-                                if abs(h[v, he.first] - h[u.first, he.first]) <= δ.value
+                                if abs(h[v, he.first] - h[u.first, he.first]) <= δ.value && probs[he.first] > rand()
 
                                     # v and u have met 
                                     # after the application of an intervention

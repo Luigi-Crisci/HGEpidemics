@@ -51,6 +51,9 @@ end
 # Generating model data
 ########################
 data_params = JSON3.read(read(open(fdata_params, "r")))
+
+
+
 header = [Symbol(col) for col in data_params.header]
 
 # The choice of the interval within which
@@ -194,6 +197,7 @@ for testtype in keys(test_data)
                 niter = 80,
                 output_path = res_path,
                 store_me = false,
+                probs,
                 npi_paramas...
             )
 
@@ -273,6 +277,18 @@ end
 
 println("---------------------------------------------------------")
 
+
+#########################
+# SIS data
+########################
+if haskey(input_data, "plot_SIS") && input_data["plot_SIS"]
+    for k in keys(simulation_data)
+        infected_per_run = simulation_data[k][1].second.infected_percentage_per_run # direct/indirect
+        susceptible_per_run = simulation_data[k][1].second.susceptible_percentage_per_run
+        
+        plot_SIS_distribution(infected_per_run, susceptible_per_run; output_path=output_path)
+    end
+end
 
 #########################
 # Storing damage

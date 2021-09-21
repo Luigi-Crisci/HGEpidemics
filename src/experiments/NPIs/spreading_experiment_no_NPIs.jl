@@ -50,6 +50,11 @@ end
 # Generating model data
 ########################
 data_params = JSON3.read(read(open(fdata_params, "r")))
+
+### Read probability dict
+probs = JSON3.read(read(open(data_params["probs"],"r")))
+probs = Dict(parse(Int,string(k)) => convert(Float64,v) for (k,v) in pairs(probs))
+
 header = [Symbol(col) for col in data_params.header]
 
 # The choice of the interval within which
@@ -167,9 +172,10 @@ for testtype in keys(test_data)
                 βₑ = test[:βₑ],
                 γₑ = test[:γₑ],
                 γₐ = test[:γₐ],
-                niter = 10,
+                niter = 50,
                 output_path = res_path,
-                store_me = false
+                store_me = false,
+                probs
             )
 
         # get the average over all iterations

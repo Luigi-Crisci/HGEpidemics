@@ -69,6 +69,7 @@ function simulate(
         output_path::Union{AbstractString, Nothing} = nothing,
         print_me::Bool = true,
         store_me::Bool = true,
+        probs::Dict{Int,Float64},
         kwargs...
 )
 
@@ -252,7 +253,8 @@ function simulate(
                                 # if u and v have been together in the same place
                                 # in a time interval less than δ
                                 # then it counts ad a direct contact
-                                if abs(h[v, he.first] - h[u.first, he.first]) <= δ.value
+                                # EDIT: added prob check to simulate space 
+                                if abs(h[v, he.first] - h[u.first, he.first]) <= δ.value && rand() < probs[v] 
                                     if _vstatus[v] == 0
                                         i += _vstatus[u.first]
                                     end
