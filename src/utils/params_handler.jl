@@ -160,6 +160,9 @@ function initialize_params_immunization(config::Dict; int_max::Int = typemax(Int
     #     immunization_strategy_kwargs = Dict{}()
     # end
 
+    # Path to serialized ids
+    path = haskey(config,:path) ? config[:path] : nothing
+
     #
     # params dict
     #
@@ -173,6 +176,7 @@ function initialize_params_immunization(config::Dict; int_max::Int = typemax(Int
         #:edges_immunization_strategy_kwargs => immunization_strategy_kwargs,
         :start_slot => haskey(config, :start_slot) ? config[:start_slot] : nothing,
         :end_slot => haskey(config, :end_slot) ? config[:end_slot] : nothing,
+        :path => path
     )
 
     printme && println(params)

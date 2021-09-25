@@ -8,5 +8,5 @@
     "store_infected_distribution":true,
     "store_simulation_data":true,
     "plot_SIS":true,
-    "store_SIS_data":true    
+    "store_SIS_data":true
 }

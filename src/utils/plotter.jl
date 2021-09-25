@@ -50,7 +50,8 @@ function plot_infected_distribution(type::default_plot, simulation_data; output_
 
         legend(labels, fontsize="large", ncol=2)
         plt.tight_layout()
-
+        
+        println("$(output_path)")
         savefig("$(output_path)/$(mytitle)")
         println("Infected distribution -> saving figure in ... $(output_path)/$(mytitle)\n")
     end    

@@ -593,3 +593,4 @@ end
 function most_loved(h::Hypergraph, α::Union{Int, Float64, Nothing}; kwargs...)
     return deserialize(kwargs[:path])
 end
+

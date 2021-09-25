@@ -158,7 +158,7 @@ function inithg(df::DataFrame, user2vertex::Dict{String, Int}, loc2he::Dict{Stri
 
         # this should never happen
         # the df is cleaned from missing data
-        if get(loc2he, checkin.venueid, -1) == -1
+        if get(loc2he, string(checkin.venueid), -1) == -1
             println(checkin.venueid)
         end
 
@@ -168,7 +168,7 @@ function inithg(df::DataFrame, user2vertex::Dict{String, Int}, loc2he::Dict{Stri
             h,
             Dates.value(checkin.timestamp),  # checkin to store
             get(user2vertex, string(checkin.userid), -1), # node id
-            get(loc2he, checkin.venueid, -1) # hyperedge id
+            get(loc2he, string(checkin.venueid), -1) # hyperedge id
         )
     end
 
@@ -186,6 +186,7 @@ function generate_hg_g_weighted!(
     loc2he::Dict{String, Int},
     δ::Dates.Millisecond
 )
+
     currdf = filter(r->((r.timestamp >= mindate) && (r.timestamp < maxdate)), df)
 
     h = Hypergraph{Int, String, String}(length(keys(user2vertex)), length(keys(loc2he)))
@@ -201,12 +202,12 @@ function generate_hg_g_weighted!(
     for checkin in eachrow(currdf)
         # this should never happen
         # the df is cleaned from missing data
-        if get(loc2he, checkin.venueid, -1) == -1
+        if get(loc2he, string(checkin.venueid), -1) == -1
             println(checkin.venueid)
         end
 
         nodeid =  get(user2vertex, string(checkin.userid), -1)
-        locid =  get(loc2he, checkin.venueid, -1)
+        locid =  get(loc2he, string(checkin.venueid), -1)
 
         push!(
             get!(checkins, locid,  Dict{Int, Int}()),
@@ -299,7 +300,7 @@ function evaluate_entropy(
     for checkin in eachrow(currdf)
         push!(
             get!(user2location, user2vertex[string(checkin.userid)], Array{Int, 1}()),
-            loc2he[checkin.venueid]
+            loc2he[string(checkin.venueid)]
         )
     end
 
@@ -349,12 +350,12 @@ function evaluate_entropy_direct(
     for checkin in eachrow(currdf)
         # this should never happen
         # the df is cleaned from missing data
-        if get(loc2he, checkin.venueid, -1) == -1
+        if get(loc2he, string(checkin.venueid), -1) == -1
             println(checkin.venueid)
         end
 
         nodeid =  get(user2vertex, string(checkin.userid), -1)
-        locid =  get(loc2he, checkin.venueid, -1)
+        locid =  get(loc2he, string(checkin.venueid), -1)
 
         push!(
             get!(checkins, locid,  Dict{Int, Int}()),
@@ -539,7 +540,7 @@ function evaluate_entropy_indirect_mean(
         for checkin in eachrow(currdf)
             push!(
                 get!(user2location, user2vertex[string(checkin.userid)], Array{Int, 1}()),
-                loc2he[checkin.venueid]
+                loc2he[string(checkin.venueid)]
             )
         end
 
@@ -605,7 +606,7 @@ function evaluate_entropy_both(
         for checkin in eachrow(currdf)
             push!(
                 get!(user2contact, user2vertex[string(checkin.userid)], Array{Int, 1}()),
-                loc2he[checkin.venueid] + length(user2vertex)
+                loc2he[string(checkin.venueid)] + length(user2vertex)
             )
         end
 
@@ -653,12 +654,12 @@ function build_graph(df, δ, user2vertex, loc2he)
     for checkin in eachrow(df)
         # this should never happen
         # the df is cleaned from missing data
-        if get(loc2he, checkin.venueid, -1) == -1
+        if get(loc2he, string(checkin.venueid), -1) == -1
             println(checkin.venueid)
         end
 
         nodeid =  get(user2vertex, string(checkin.userid), -1)
-        locid =  get(loc2he, checkin.venueid, -1)
+        locid =  get(loc2he, string(checkin.venueid), -1)
 
         push!(
             get!(checkins, locid,  Dict{Int, Int}()),

@@ -24,8 +24,8 @@ using Statistics
 ############################
 # Loading simulation params
 ############################
-# path = ARGS[1] 
-path = "src/experiments/immunization/BLE/configs/ble_params.json"
+path = ARGS[1] 
+# path = "src/experiments/immunization/BLE/configs/ble_params.json"
 input_data = JSON.parse((open(path, "r")))
 
 output_path = input_data["output_path"]
@@ -146,7 +146,7 @@ for testtype in keys(test_data)
             data; 
             printme = true
         )
-
+        
         results =
             simulate(
                 SIS_vax(),
@@ -164,15 +164,23 @@ for testtype in keys(test_data)
                 βₑ = test[:βₑ],
                 γₑ = test[:γₑ],
                 γₐ = test[:γₐ],
-                niter = 1,
+                niter = 20,
                 output_path = res_path,
                 store_me = false,
                 imm_paramas...
             )
 
-        # get the average over all iterations
-        infected_distribution = mean(collect(values(results[:infected_percentage])))
-        susceptible_distribution = mean(collect(values(results[:susceptible_percentage])))
+         # get the average over all iterations
+         infected_distribution = mean(collect(values(results[:infected_percentage])))
+         susceptible_distribution = mean(collect(values(results[:susceptible_percentage])))
+        #  isolated_distribution = mean(collect(values(results[:isolated_percentage])))
+        #  quarantined_distribution = mean(collect(values(results[:quarantined_percentage])))
+ 
+        #  infected_not_isolated_distribution = mean(collect(values(results[:infected_not_isolated_percentage])))
+        #  infected_not_quarantined_distribution = mean(collect(values(results[:infected_not_quarantined_percentage])))
+ 
+        #  agents_met = mean(collect(values(results[:agents_met])))
+        #  location_visited = mean(collect(values(results[:location_visited])))
 
         infected_distribution_std = std(collect(values(results[:infected_percentage])))
 
@@ -180,9 +188,13 @@ for testtype in keys(test_data)
             get!(simulation_data, testtype, Array{Dict{String, NamedTuple}, 1}()),
             test[:label] => (
                 raw_results = results,
-                infected_distribution = infected_distribution, 
+                infected_distribution = infected_distribution,
+                # infected_percentage_per_run = results[:infected_percentage],
                 infected_distribution_std = infected_distribution_std,
                 susceptible_distribution = susceptible_distribution,
+                # susceptible_percentage_per_run = results[:susceptible_percentage],
+                # agents_met = agents_met,
+                # location_visited = location_visited,
                 Δ = test[:Δ], 
                 δ = test[:δ]
             )
@@ -247,3 +259,23 @@ end
 
 println("---------------------------------------------------------")
 
+#     #########################
+# # SIS data
+# ########################
+# if haskey(input_data, "plot_SIS") && input_data["plot_SIS"]
+#     for k in keys(simulation_data)
+#         infected_per_run = simulation_data[k][1].second.infected_percentage_per_run # direct/indirect
+#         susceptible_per_run = simulation_data[k][1].second.susceptible_percentage_per_run
+        
+#         plot_SIS_distribution(infected_per_run, susceptible_per_run; output_path=output_path)
+#     end
+# end
+
+# if haskey(input_data, "store_SIS_data") && input_data["store_SIS_data"]
+#     for k in keys(simulation_data)
+#         infected_per_run = simulation_data[k][1].second.infected_percentage_per_run # direct/indirect
+#         susceptible_per_run = simulation_data[k][1].second.susceptible_percentage_per_run
+        
+#         store_SIS_distribution_data(infected_per_run, susceptible_per_run; output_path=output_path)
+#     end
+# end

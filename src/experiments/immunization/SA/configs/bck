@@ -1,0 +1,25 @@
+[
+
+  {
+    "exp_id":"young",
+    "exp":"direct-indirect",
+    "label":"Direct/Indirect-immunization-young",
+    "infected_percentage":0.2,
+    "c":5,
+    "Δ":4,
+    "δ":15,
+    "βd":0.2,
+    "βᵢ":0.1,
+    "βₑ":0.06,
+    "γₑ":0.06,
+    "γₐ":0.1,
+    "αᵥ":0.3,
+    "nodes_immunization_strategy": "most_loved",
+    "path" : "/home/luigi/julia-workspace/HypergraphsEpidemics/resources/datasets/Salerno/person_under_20.bin",
+    "type":null,
+    "history":true,
+    "intervention_start":15,
+    "start_slot":1,
+    "end_slot":1
+  }
+]

@@ -323,6 +323,8 @@ function simulate(
                     nodes_immunization_strategy_kwargs[:imm_start] = intervention_start
                     nodes_immunization_strategy_kwargs[:start_slot] = kwargs[:start_slot]
                     nodes_immunization_strategy_kwargs[:end_slot] = kwargs[:end_slot]
+                    
+                    nodes_immunization_strategy_kwargs[:path] = kwargs[:path]
 
                     to_immunize = nodes_immunization_strategy(h, αᵥ; nodes_immunization_strategy_kwargs...)
                     map(v -> nextistatus[v] = 1, to_immunize)
