@@ -53,9 +53,6 @@ end
 data_params = JSON3.read(read(open(fdata_params, "r")))
 header = [Symbol(col) for col in data_params.header]
 
-### Get probabilility dictionary
-probs = JSON.parsefile(input_data["probs"])
-probs = Dict(parse(Int,k) => v for (k,v) in pairs(probs))
 
 # The choice of the interval within which
 # either an indirect (Δ) or direct (δ) contact
@@ -198,7 +195,6 @@ for testtype in keys(test_data)
                 niter = 80,
                 output_path = res_path,
                 store_me = false,
-                probs,
                 npi_paramas...
             )
 
