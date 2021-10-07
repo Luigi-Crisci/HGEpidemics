@@ -164,7 +164,7 @@ for testtype in keys(test_data)
                 βₑ = test[:βₑ],
                 γₑ = test[:γₑ],
                 γₐ = test[:γₐ],
-                niter = 20,
+                niter = 80,
                 output_path = res_path,
                 store_me = false,
                 imm_paramas...

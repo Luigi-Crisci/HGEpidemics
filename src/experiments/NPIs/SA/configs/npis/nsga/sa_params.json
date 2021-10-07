@@ -2,6 +2,7 @@
     "data_params":"src/experiments/NPIs/SA/configs/npis/nsga/data_params.json",
     "sim_params":"src/experiments/NPIs/SA/configs/npis/nsga/sim_params.json",
     "output_path":"src/experiments/NPIs/SA/results/npis/nsga",
-    "agent_damage_path":"data/salerno/damage/nsga/damage_agents.csv",
-    "location_damage_path":"data/salerno/damage/nsga/damage_locs.csv"
+    "agent_damage_path":"data/salerno/damage/damage_agents.csv",
+    "location_damage_path":"data/salerno/damage/damage_locs.csv",
+    "plot_infected" : true
 }

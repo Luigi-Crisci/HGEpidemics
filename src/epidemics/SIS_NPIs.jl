@@ -1,3 +1,86 @@
+function was_active(key::Symbol, array, index)
+    return index <= 1 ? false : key ∈ array[index - 1]
+end
+
+function expand_parameters(kwargs,interval = 1)
+    
+    interventions_order = haskey(kwargs, :interventions_order) ?
+    kwargs[:interventions_order] : []
+    interventions_time =  haskey(kwargs, :interventions_time) ? kwargs[:interventions_time] : []
+    
+    timed_intervention = false
+    if !isempty(interventions_order)
+        timed_intervention = true
+    end
+
+    ### Debugging ###
+    if interval > 1
+        println("Switch!\nGoing from $(interventions_order[interval-1]) to $(interventions_order[interval])")
+    end
+
+    is_active(name) = !timed_intervention || name ∈ interventions_order[interval]
+
+    df_avoiding_crowding = haskey(kwargs, :df_avoiding_crowding) && is_active(:df_avoiding_crowding) ?
+                           kwargs[:df_avoiding_crowding] : nothing
+    avoiding_crowding = isnothing(df_avoiding_crowding) ? false : true
+
+    thr_ac = haskey(kwargs, :thr_ac) && is_active(:thr_ac) ? kwargs[:thr_ac] : nothing
+
+    βquarantine = haskey(kwargs, :βquarantine) && is_active(:βquarantine) ? kwargs[:βquarantine] : nothing
+    βisolation = haskey(kwargs, :βisolation)  && is_active(:βquarantine) ? kwargs[:βisolation] : nothing
+    β_quarantine_loc = haskey(kwargs, :β_quarantine_loc) && is_active(:βquarantine) ? kwargs[:β_quarantine_loc] : nothing
+
+    αₚ = haskey(kwargs, :αₚ) ? kwargs[:αₚ] : 0
+    ppm = αₚ > 0 && is_active(:ppm) ? true : false
+    ppm_βₑ = haskey(kwargs, :ppm_βₑ)  && is_active(:ppm) ? kwargs[:ppm_βₑ] : nothing
+    ppm_βd = haskey(kwargs, :ppm_βd)  && is_active(:ppm) ? kwargs[:ppm_βd] : nothing
+    ppm_βᵢ = haskey(kwargs, :ppm_βᵢ)  && is_active(:ppm) ? kwargs[:ppm_βᵢ] : nothing
+
+    αₑ = haskey(kwargs, :αₑ) && is_active(:lockdown) ? kwargs[:αₑ] : 0
+    lockdown = αₑ > 0 && is_active(:lockdown) ? true : false
+
+    αᵢ = haskey(kwargs, :αᵢ) && is_active(:tracing) ? kwargs[:αᵢ] : 0
+    tracing = αᵢ > 0 && is_active(:tracing) ? true : false
+    βtracing = haskey(kwargs, :βtracing) && is_active(:tracing) ? kwargs[:βtracing] : 0
+
+    βₗ = haskey(kwargs, :βₗ) && is_active(βₗ) ? kwargs[:βₗ] : 0
+    sanitize = haskey(kwargs, :sanitize) && is_active(:sanitize) ? kwargs[:sanitize] : nothing
+    sanification_intervals = haskey(kwargs, :sanification_intervals) ? kwargs[:sanification_intervals] : Array{Int, 1}()
+
+    ###### Immunization ######
+    
+    # immunization params - nodes
+    αᵥ = haskey(kwargs, :αᵥ) && is_active(:nodes_immunization) ? kwargs[:αᵥ] : 0
+    nodes_immunization = αᵥ > 0 && is_active(:nodes_immunization) ? true : false
+    nodes_immunization_strategy = haskey(kwargs, :nodes_immunization_strategy) ? kwargs[:nodes_immunization_strategy] : nothing
+    nodes_immunization_strategy_kwargs = haskey(kwargs, :nodes_immunization_strategy_kwargs) ? kwargs[:nodes_immunization_strategy_kwargs] : Dict{}()
+
+    # immunization params - edges
+    edges_immunization_strategy = haskey(kwargs, :edges_immunization_strategy) ? kwargs[:edges_immunization_strategy] : nothing
+    edges_immunization_strategy_kwargs = haskey(kwargs, :edges_immunization_strategy_kwargs) ? kwargs[:edges_immunization_strategy_kwargs] : Dict{}()
+    edges_immunization = isnothing(edges_immunization_strategy) ? false : true
+
+    printpar(args...) = for e in args println(e[1]," = ", e[2] ) end
+
+    printpar( ("df_avoiding_crowding", df_avoiding_crowding),("avoiding_crowding", avoiding_crowding),
+    ("thr_ac", thr_ac),("βisolation", βisolation),("βquarantine", βquarantine),("β_quarantine_loc", β_quarantine_loc),
+    ("αₚ", αₚ),("ppm", ppm),("ppm_βₑ", ppm_βₑ),("ppm_βd", ppm_βd),("ppm_βᵢ", ppm_βᵢ),("αₑ", αₑ),("lockdown", lockdown),
+    ("αᵢ", αᵢ),("tracing", tracing),("βtracing", βtracing),("βₗ", βₗ),("sanitize", sanitize),
+    ("sanification_intervals", sanification_intervals),("αᵥ", αᵥ),("nodes_immunization", nodes_immunization),
+    ("nodes_immunization_strategy", nodes_immunization_strategy),
+    ("nodes_immunization_strategy_kwargs", nodes_immunization_strategy_kwargs),
+    ("edges_immunization", edges_immunization),("edges_immunization_strategy", edges_immunization_strategy),
+    ("edges_immunization_strategy_kwargs", edges_immunization_strategy_kwargs),
+    ("interventions_order", interventions_order),("interventions_time", interventions_time)
+    )
+
+    return df_avoiding_crowding,avoiding_crowding,thr_ac,βisolation,βquarantine,β_quarantine_loc,
+    αₚ,ppm,ppm_βₑ,ppm_βd,ppm_βᵢ,αₑ,lockdown,αᵢ,tracing,βtracing,βₗ,sanitize,sanification_intervals,
+    αᵥ,nodes_immunization,nodes_immunization_strategy,nodes_immunization_strategy_kwargs,
+    edges_immunization, edges_immunization_strategy, edges_immunization_strategy_kwargs,
+    interventions_order,interventions_time
+end
+
 """
     simulate(
             sim_type::SIS,
@@ -99,42 +182,21 @@ function simulate(
         output_path::Union{AbstractString, Nothing} = nothing,
         print_me::Bool = true,
         store_me::Bool = true,
-        kwargs...
+        kwargs::OrderedDict{Symbol,Any}
 )
-
     #########################
     # Check NPIs params
     ########################
-    df_avoiding_crowding = haskey(kwargs, :df_avoiding_crowding) ? kwargs[:df_avoiding_crowding] : nothing
-    avoiding_crowding = isnothing(df_avoiding_crowding) ? false : true
-    thr_ac = haskey(kwargs, :thr_ac) ? kwargs[:thr_ac] : nothing
+    df_avoiding_crowding,avoiding_crowding,thr_ac,βisolation,βquarantine,β_quarantine_loc,
+    αₚ,ppm,ppm_βₑ,ppm_βd,ppm_βᵢ,αₑ,lockdown,αᵢ,tracing,βtracing,βₗ,
+    sanitize,sanification_intervals,
+    αᵥ,nodes_immunization,nodes_immunization_strategy,nodes_immunization_strategy_kwargs,
+    edges_immunization, edges_immunization_strategy, edges_immunization_strategy_kwargs,
+    interventions_order,interventions_time = expand_parameters(kwargs,1)
 
-    βisolation = haskey(kwargs, :βisolation) ? kwargs[:βisolation] : nothing
-    βquarantine = haskey(kwargs, :βquarantine) ? kwargs[:βquarantine] : nothing
-    β_quarantine_loc = haskey(kwargs, :β_quarantine_loc) ? kwargs[:β_quarantine_loc] : nothing
-
-    αₚ = haskey(kwargs, :αₚ) ? kwargs[:αₚ] : 0
-    ppm = αₚ > 0 ? true : false
-    ppm_βₑ = haskey(kwargs, :ppm_βₑ) ? kwargs[:ppm_βₑ] : nothing
-    ppm_βd = haskey(kwargs, :ppm_βd) ? kwargs[:ppm_βd] : nothing
-    ppm_βᵢ = haskey(kwargs, :ppm_βᵢ) ? kwargs[:ppm_βᵢ] : nothing
-
-    αᵥ = haskey(kwargs, :αᵥ) ? kwargs[:αᵥ] : 0
-    nodes_immunization = αᵥ > 0 ? true : false
-
-    αₑ = haskey(kwargs, :αₑ) ? kwargs[:αₑ] : 0
-    lockdown = αₑ > 0 ? true : false
-
-    αᵢ = haskey(kwargs, :αᵢ) ? kwargs[:αᵢ] : 0
-    tracing = αᵢ > 0 ? true : false
-    βtracing = haskey(kwargs, :βtracing) ? kwargs[:βtracing] : 0
-
-    βₗ = haskey(kwargs, :βₗ) ? kwargs[:βₗ] : 0
-    sanitize = haskey(kwargs, :sanitize) ? kwargs[:sanitize] : nothing
-    sanification_intervals = haskey(kwargs, :sanification_intervals) ? kwargs[:sanification_intervals] : Array{Int, 1}()
-    # println(sanification_intervals)
-
-    intervention_start = haskey(kwargs, :intervention_start) ? kwargs[:intervention_start] : length(intervals) + 1
+    # intervention_start = haskey(kwargs, :intervention_start) ? kwargs[:intervention_start] : length(intervals) + 1
+    #! "intervention_start" is legacy code: has been kept just for compatibility
+    intervention_start = haskey(kwargs, :intervention_start) ? kwargs[:intervention_start] : (!isempty(interventions_time) ? interventions_time[1] : length(intervals) + 1)
 
     nodes_selection_strategy = haskey(kwargs, :nodes_selection_strategy) ? kwargs[:nodes_selection_strategy] : nothing
     nodes_tracing_strategy = haskey(kwargs, :nodes_tracing_strategy) ? kwargs[:nodes_tracing_strategy] : nothing
@@ -218,6 +280,15 @@ function simulate(
     # for randomization purposes
     for iter=1:niter
         print_me && println("Iter $(iter)")
+
+        if iter > 1
+            df_avoiding_crowding,avoiding_crowding,thr_ac,βisolation,βquarantine,β_quarantine_loc,
+            αₚ,ppm,ppm_βₑ,ppm_βd,ppm_βᵢ,αₑ,lockdown,αᵢ,tracing,βtracing,βₗ,
+            sanitize,sanification_intervals,
+            αᵥ,nodes_immunization,nodes_immunization_strategy,nodes_immunization_strategy_kwargs,
+            edges_immunization, edges_immunization_strategy, edges_immunization_strategy_kwargs,
+            interventions_order,interventions_time = expand_parameters(kwargs,1)
+        end
 
         h = nothing
         added, moved = 0, 0
@@ -304,7 +375,29 @@ function simulate(
         ################
         # SIMULATION
         ################
+        timed_intervention = !isempty(interventions_order)
+        next_intervention = 2
+
+        u2trace = []
+        to_immunize = []
+        to_close = []
+        using_ppms = []
+        self_isolation = []
         for t=1:length(intervals)
+            
+            # println("Interval: $(t) -> timed_intervention: $(timed_intervention) - interventions_time: $(interventions_time)")
+            
+            #Check if the interventions must change
+            if timed_intervention && t != 1 && t ∈ interventions_time
+                df_avoiding_crowding,avoiding_crowding,thr_ac,βisolation,βquarantine,β_quarantine_loc,
+                αₚ,ppm,ppm_βₑ,ppm_βd,ppm_βᵢ,αₑ,lockdown,αᵢ,tracing,βtracing,βₗ,
+                sanitize,sanification_intervals,
+                αᵥ,nodes_immunization,nodes_immunization_strategy,nodes_immunization_strategy_kwargs,
+                edges_immunization, edges_immunization_strategy, edges_immunization_strategy_kwargs,
+                interventions_order,interventions_time = expand_parameters(kwargs,next_intervention)
+                next_intervention += 1
+            end
+
             checkins_df = avoiding_crowding && t >= intervention_start ? df_avoiding_crowding : df
             thr = !isnothing(thr_ac) && t >= intervention_start ? thr_ac : nothing
 
@@ -386,30 +479,74 @@ function simulate(
 
             # start the immunization process
             # in a given timeframe
-            if t == intervention_start
+            #! "t == intervention_start" is legacy code. It has been ketp just for compatibility
+            if t ∈ interventions_time || t == intervention_start
                 # apply the given selection strategy
                 # to choose which αₚ nodes will use PPM
-                if ppm
+                if ppm && !was_active(:ppm,interventions_order,next_intervention - 1)
+                    println("nodes_selection_strategy: ", nodes_selection_strategy)
                     using_ppms = nodes_selection_strategy(h, αₚ; nodes_selection_strategy_kwargs...)
                     map(v -> ppm_agents[v] = 1, using_ppms)
+                elseif !ppm
+                    map(v -> ppm_agents[v] = 0, using_ppms) 
+                    using_ppms = [] # Cleanup
                 end
 
                 # apply the given selection strategy
                 # to choose which αᵥ nodes will be immunized
-                if nodes_immunization
-                    to_immunize = nodes_selection_strategy(h, αᵥ; nodes_selection_strategy_kwargs...)
+                if nodes_immunization && !was_active(:nodes_immunization,interventions_order,next_intervention - 1)
+                    nodes_immunization_strategy_kwargs[:mindate] = get(intervals, kwargs[:start_slot], 0).first
+                    nodes_immunization_strategy_kwargs[:maxdate] = get(intervals, kwargs[:end_slot], 0).second 
+
+                    nodes_immunization_strategy_kwargs[:df] = df
+                    nodes_immunization_strategy_kwargs[:intervals] = intervals
+                    nodes_immunization_strategy_kwargs[:user2vertex] = user2vertex
+                    nodes_immunization_strategy_kwargs[:loc2he] = loc2he
+                    nodes_immunization_strategy_kwargs[:δ] = δ
+
+                    nodes_immunization_strategy_kwargs[:imm_start] = intervention_start
+                    nodes_immunization_strategy_kwargs[:start_slot] = kwargs[:start_slot]
+                    nodes_immunization_strategy_kwargs[:end_slot] = kwargs[:end_slot]
+                    
+                    nodes_immunization_strategy_kwargs[:path] = kwargs[:path]
+
+                    to_immunize = nodes_immunization_strategy(h, αᵥ; nodes_immunization_strategy_kwargs...)
                     map(v -> nextistatus[v] = 1, to_immunize)
+                end
+
+                if edges_immunization && !was_active(:edges_immunization,interventions_order,next_intervention - 1)
+
+                    edges_immunization_strategy_kwargs[:mindate] = get(intervals, kwargs[:start_slot], 0).first
+                    edges_immunization_strategy_kwargs[:maxdate] = get(intervals, kwargs[:end_slot], 0).second 
+
+                    edges_immunization_strategy_kwargs[:df] = df
+                    edges_immunization_strategy_kwargs[:intervals] = intervals
+                    edges_immunization_strategy_kwargs[:user2vertex] = user2vertex
+                    edges_immunization_strategy_kwargs[:loc2he] = loc2he
+                    edges_immunization_strategy_kwargs[:δ] = δ
+
+                    edges_immunization_strategy_kwargs[:imm_start] = intervention_start
+                    edges_immunization_strategy_kwargs[:start_slot] = kwargs[:start_slot]
+                    edges_immunization_strategy_kwargs[:end_slot] = kwargs[:end_slot]
+
+                    to_immunize = edges_immunization_strategy(dual(h), αₑ; edges_immunization_strategy_kwargs...)
+                    map(he -> nextihestatus[he] = 1, to_immunize)
                 end
 
                 # apply the given immunization strategy
                 # over αₑ hyperedges
                 # LOCKDOWN
-                if lockdown
+                if lockdown && !was_active(:lockdown,interventions_order,next_intervention - 1)
                     to_close = edges_selection_strategy(dual(h), αₑ; edges_selection_strategy_kwargs...)
+                    println(to_close)
                     map(he -> nextihestatus[he] = 1, to_close)
+                elseif !lockdown
+                    map(he -> nextihestatus[he] = 0, to_close) 
+                    to_close = [] # Cleanup
                 end
 
-                if tracing
+
+                if tracing && !was_active(:tracing,interventions_order,next_intervention - 1)
                     u2trace = nodes_tracing_strategy(h, αᵢ; nodes_tracing_strategy_kwargs...)
                     map(user -> to_trace[user] = Set{Int}(), u2trace)
                     users_to_trace = keys(to_trace)
@@ -427,9 +564,13 @@ function simulate(
                     if agentsepoc[v] == 1
                         if _vstatus[v] == 1 && istatus[v] == 0 && quarantine[v] == 0 && rand() < 1 -  ℯ ^ - (kwargs[:βisolation])
                             next_isolation[v] = 1
+                            push!(self_isolation, v)
                         end
                     end
                 end
+            elseif isnothing(βisolation)
+                map(v -> next_isolation[v] = 0, self_isolation)
+                self_isolation = [] #Cleanup
             end
 
             ########################
@@ -450,6 +591,11 @@ function simulate(
                         end
                     end
                 end
+            elseif !tracing
+                for v in users_to_trace
+                    quarantine[v] = 0
+                end
+                users_to_trace = []
             end
 
             ########################

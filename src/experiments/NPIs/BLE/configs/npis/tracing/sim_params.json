@@ -9,13 +9,13 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "βtracing":0.0,
     "αᵢ":0.0,
     "nodes_tracing_strategy":null,
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"tracing",
@@ -27,13 +27,13 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "βtracing":0.6,
     "αᵢ":0.25,
     "nodes_tracing_strategy":"uniform",
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"tracing",
@@ -45,13 +45,13 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "βtracing":0.6,
     "αᵢ":0.5,
     "nodes_tracing_strategy":"uniform",
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"tracing",
@@ -63,13 +63,13 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "βtracing":0.6,
     "αᵢ":0.75,
     "nodes_tracing_strategy":"uniform",
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"tracing",
@@ -81,12 +81,12 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "βtracing":0.6,
     "αᵢ":1.0,
     "nodes_tracing_strategy":"uniform",
-    "intervention_start":10
+    "intervention_start":42
   }
 ]

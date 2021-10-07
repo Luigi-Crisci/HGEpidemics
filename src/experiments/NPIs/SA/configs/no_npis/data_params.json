@@ -1,5 +1,5 @@
 {
-  "dataset": "/home/luigi/julia-workspace/HypergraphsEpidemics/resources/datasets/Salerno/contacts.csv",
+  "dataset": "/home/lcrisci/workspace/Hypergraphs-Epidemics/resources/datasets/Salerno/contacts.csv",
   "probs": "/home/luigi/julia-workspace/HypergraphsEpidemics/resources/datasets/Salerno/probs.json",
   "header": ["Time", "Id", "position"],
   "dateformat": "Y-m-dTH:M:S.0",

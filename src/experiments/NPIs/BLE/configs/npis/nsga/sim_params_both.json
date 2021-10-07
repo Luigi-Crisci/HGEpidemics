@@ -9,7 +9,7 @@
       "δ":15,
       "βd":0.2,
       "βᵢ":0.1,
-      "βₑ":0.06,
+      "βₑ":0.09,
       "γₑ":0.06,
       "γₐ":0.1,
       "ppm_βd":0.1,
@@ -28,7 +28,7 @@
       "αₑ":0.0,
       "edges_selection_strategy":null,
       "path":null,
-      "intervention_start":10
+      "intervention_start":42
     },
     {
       "exp_id":"pareto-both",
@@ -40,7 +40,7 @@
       "δ":15,
       "βd":0.2,
       "βᵢ":0.1,
-      "βₑ":0.06,
+      "βₑ":0.09,
       "γₑ":0.06,
       "γₐ":0.1,      
       "ppm_βd":0.1,
@@ -59,7 +59,7 @@
       "αₑ":0.87,
       "edges_selection_strategy":"custom",
       "path":"/mnt/e/github/code/HGEpidemics/data/blebeacon/NPIs/loc_by_checkins.data",
-      "intervention_start":10
+      "intervention_start":42
     },
     {
       "exp_id":"pareto-both",
@@ -71,7 +71,7 @@
       "δ":15,
       "βd":0.2,
       "βᵢ":0.1,
-      "βₑ":0.06,
+      "βₑ":0.09,
       "γₑ":0.06,
       "γₐ":0.1,      
       "ppm_βd":0.1,
@@ -90,7 +90,7 @@
       "αₑ":0.02,
       "edges_selection_strategy":"custom",
       "path":"/mnt/e/github/code/HGEpidemics/data/blebeacon/NPIs/loc_by_checkins.data",
-      "intervention_start":10
+      "intervention_start":42
     },
     {
       "exp_id":"pareto-both",
@@ -102,7 +102,7 @@
       "δ":15,
       "βd":0.2,
       "βᵢ":0.1,
-      "βₑ":0.06,
+      "βₑ":0.09,
       "γₑ":0.06,
       "γₐ":0.1,      
       "ppm_βd":0.1,
@@ -121,7 +121,7 @@
       "αₑ":0.02,
       "edges_selection_strategy":"custom",
       "path":"/mnt/e/github/code/HGEpidemics/data/blebeacon/NPIs/loc_by_checkins.data",
-      "intervention_start":10
+      "intervention_start":42
     },
     {
       "exp_id":"pareto-both",
@@ -133,7 +133,7 @@
       "δ":15,
       "βd":0.2,
       "βᵢ":0.1,
-      "βₑ":0.06,
+      "βₑ":0.09,
       "γₑ":0.06,
       "γₐ":0.1,
       "ppm_βd":0.1,
@@ -152,7 +152,7 @@
       "αₑ":1.0,
       "edges_selection_strategy":"custom",
       "path":"/mnt/e/github/code/HGEpidemics/data/blebeacon/NPIs/loc_by_checkins.data",
-      "intervention_start":10
+      "intervention_start":42
     }
   ]
   

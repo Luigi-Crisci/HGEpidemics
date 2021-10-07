@@ -1,0 +1,8 @@
+{
+    "data_params":"src/experiments/immunization/SA/configs/data_params.json",
+    "sim_params":"src/experiments/immunization/SA/configs/age_immunization_mixed/sim_params_age.json",
+    "output_path":"src/experiments/immunization/SA/results/age_immunization_mixed",
+    "plot_infected":true,
+    "store_infected_distribution":true,
+    "store_simulation_data":true  
+}

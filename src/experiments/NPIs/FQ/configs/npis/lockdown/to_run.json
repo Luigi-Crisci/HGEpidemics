@@ -15,7 +15,7 @@
     "αₑ":0.3,
     "edges_selection_strategy":"custom",
     "path":"data/foursquare/NPIs/loc_by_checkins.data",
-    "intervention_start":100
+    "intervention_start":50
   },
   {
     "exp_id":"lockdown",
@@ -33,7 +33,7 @@
     "αₑ":0.6,
     "edges_selection_strategy":"custom",
     "path":"data/foursquare/NPIs/loc_by_checkins.data",
-    "intervention_start":100
+    "intervention_start":50
   },
   {
     "exp_id":"lockdown",
@@ -51,6 +51,6 @@
     "αₑ":0.9,
     "edges_selection_strategy":"custom",
     "path":"data/foursquare/NPIs/loc_by_checkins.data",
-    "intervention_start":100
+    "intervention_start":50
   }
 ]

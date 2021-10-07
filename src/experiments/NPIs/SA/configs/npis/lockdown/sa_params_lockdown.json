@@ -1,9 +1,9 @@
 {
     "data_params":"src/experiments/NPIs/SA/configs/no_npis/data_params.json",
-    "sim_params":"src/experiments/NPIs/SA/configs/npis/lockdown/to_run.json",
+    "sim_params":"src/experiments/NPIs/SA/configs/npis/lockdown/sim_params_lockdown.json",
     "output_path":"src/experiments/NPIs/SA/results/npis/lockdown",
-    "agent_damage_path":"data/salerno/damage/lockdown/damage_agents.csv",
-    "location_damage_path":"data/salerno/damage/lockdown/damage_locs.csv",
+    "agent_damage_path":"data/salerno/damage/damage_agents.csv",
+    "location_damage_path":"data/salerno/damage/damage_locs.csv",
     "plot_infected":true,
     "store_simulation_data":true,
     "check_damage":true,

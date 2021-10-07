@@ -13,7 +13,6 @@ using PyPlot
 using Statistics
 
 """
-
     Experiments on a spreading process
     via Time-Varying Hypergraphs
     using the Susceptible-Infected-Susceptible epidemic model. 
@@ -175,6 +174,7 @@ for testtype in keys(test_data)
             printme = true
         )
 
+
         results =
             simulate(
                 SIS_NPIs(),
@@ -192,10 +192,10 @@ for testtype in keys(test_data)
                 βₑ = test[:βₑ],
                 γₑ = test[:γₑ],
                 γₐ = test[:γₐ],
-                niter = 80,
+                niter = 5,
                 output_path = res_path,
                 store_me = false,
-                npi_paramas...
+                kwargs = npi_paramas
             )
 
         # get the average over all iterations

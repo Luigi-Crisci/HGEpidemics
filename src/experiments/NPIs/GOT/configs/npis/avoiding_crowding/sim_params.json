@@ -9,11 +9,11 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "avoiding_crowding":false,
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"avoiding_crowding",
@@ -25,11 +25,11 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "avoiding_crowding":true,
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"avoiding_crowding",
@@ -45,7 +45,7 @@
     "γₑ":0.0,
     "γₐ":0.1,
     "avoiding_crowding":false,
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"avoiding_crowding",
@@ -61,7 +61,7 @@
     "γₑ":0.0,
     "γₐ":0.1,
     "avoiding_crowding":true,
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"avoiding_crowding",
@@ -73,10 +73,10 @@
     "δ":15,
     "βd":0.0,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "avoiding_crowding":true,
-    "intervention_start":10
+    "intervention_start":42
   }
 ]

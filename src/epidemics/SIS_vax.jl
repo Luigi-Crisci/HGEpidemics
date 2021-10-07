@@ -291,18 +291,18 @@ function simulate(
             # but it can still spread the contagion
             ########################
 
-            if t < intervention_start 
-                #push!(per_infected_sim, sum(_vstatus) / (length(_vstatus) - sum(istatus)))
-                push!(per_infected_sim, 0)
+            # if t < intervention_start 
+            #     #push!(per_infected_sim, sum(_vstatus) / (length(_vstatus) - sum(istatus)))
+            #     push!(per_infected_sim, 0)
 
-                push!(new_infected_direct, 0)
-                push!(new_infected_indirect, 0)
-                push!(new_infected_both, 0)
+            #     push!(new_infected_direct, 0)
+            #     push!(new_infected_indirect, 0)
+            #     push!(new_infected_both, 0)
 
-                push!(susceptible, 1)
+            #     push!(susceptible, 1)
                 
-                continue
-            end
+            #     continue
+            # end
 
             # start the immunization process
             # in a given timeframe

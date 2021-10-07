@@ -1,11 +1,22 @@
-function initialize_params(config::Dict; int_max::Int = typemax(Int), df_ac::Union{DataFrame,Nothing} = nothing, printme::Bool = false)
+
+#TODO: Aggiungi qui i parametri di intervention_order
+function initialize_params(config::Dict; int_max::Int = typemax(Int), df_ac::Union{DataFrame,Nothing} = nothing, printme::Bool = false)::OrderedDict{Symbol, Any}
+
+    interventions_order_tmp = haskey(config, :interventions_order) ?
+    config[:interventions_order] : []
+    interventions_time =  haskey(config, :interventions_time) ? config[:interventions_time] : []
 
     intervention_start = haskey(config, :intervention_start) ? config[:intervention_start] : int_max
+
+    interventions_order = []
+    for vec in interventions_order_tmp
+        push!(interventions_order,map(Symbol,vec))
+    end
+    
 
     ################
     # immunization
     ################
-
     # nodes
     αᵥ = haskey(config, :αᵥ) ? config[:αᵥ] : 0
 
@@ -80,6 +91,10 @@ function initialize_params(config::Dict; int_max::Int = typemax(Int), df_ac::Uni
 
     thr_ac = haskey(config, :thr_ac) && !ismissing(config[:thr_ac]) ? config[:thr_ac] : nothing  
 
+    ####### IMMUNIZATION ######à
+    start_slot = haskey(config,:start_slot) ? config[:start_slot] : nothing
+    end_slot = haskey(config,:end_slot) ? config[:end_slot] : nothing
+    path = haskey(config,:path) ? config[:path] : nothing
     #
     # params dict
     #
@@ -104,12 +119,17 @@ function initialize_params(config::Dict; int_max::Int = typemax(Int), df_ac::Uni
         :edges_selection_strategy => edges_selection_strategy,
         :edges_selection_strategy_kwargs => edges_selection_strategy_kwargs,
         :df_avoiding_crowding => df_avoiding_crowding,
-        :thr_ac => thr_ac
+        :thr_ac => thr_ac,
+        :start_slot => start_slot,
+        :end_slot => end_slot,
+        :path => path,
+        :interventions_order => interventions_order,
+        :interventions_time => interventions_time
     )
 
     printme && print_params(params)
 
-    params
+    return params
 end
 
 

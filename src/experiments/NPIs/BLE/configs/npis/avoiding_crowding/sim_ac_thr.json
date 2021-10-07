@@ -14,7 +14,7 @@
       "γₐ":0.024,
       "avoiding_crowding":false,
       "thr_ac":null,
-      "intervention_start":100
+      "intervention_start":50
     },
     {
       "exp_id":"avoiding_crowding",
@@ -31,7 +31,7 @@
       "γₐ":0.024,
       "avoiding_crowding":true,
       "thr_ac":1,
-      "intervention_start":100
+      "intervention_start":50
     },
     {
       "exp_id":"avoiding_crowding",
@@ -48,7 +48,7 @@
       "γₐ":0.024,
       "avoiding_crowding":true,
       "thr_ac":3,
-      "intervention_start":100
+      "intervention_start":50
     },
     {
       "exp_id":"avoiding_crowding",
@@ -65,7 +65,7 @@
       "γₐ":0.024,
       "avoiding_crowding":true,
       "thr_ac":6,
-      "intervention_start":100
+      "intervention_start":50
     }
   ]
   

@@ -9,7 +9,7 @@
       "δ":15,
       "βd":0.2,
       "βᵢ":0.1,
-      "βₑ":0.06,
+      "βₑ":0.09,
       "γₑ":0.06,
       "γₐ":0.1,
       "αₚ":0,
@@ -27,7 +27,7 @@
       "avoiding_crowding":false,
       "αₑ":0.0,
       "edges_selection_strategy":null,
-      "intervention_start":10
+      "intervention_start":42
     },
     {
       "exp_id":"avoiding_crowding",
@@ -39,7 +39,7 @@
       "δ":15,
       "βd":0.2,
       "βᵢ":0.1,
-      "βₑ":0.06,
+      "βₑ":0.09,
       "γₑ":0.06,
       "γₐ":0.1,
       "αₚ":0.98,
@@ -57,7 +57,7 @@
       "avoiding_crowding":false,
       "αₑ":0.0015,
       "edges_selection_strategy":"uniform",
-      "intervention_start":10      
+      "intervention_start":42      
     }
   ]
   

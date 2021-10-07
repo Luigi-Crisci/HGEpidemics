@@ -258,5 +258,3 @@ if haskey(input_data, "store_damage") && input_data["store_damage"]
     store_damage(sim_data, user2vertex, damage_output_path_agents)
     store_damage(sim_data_loc, user2vertex, damage_output_path_locs)
 end
-
-

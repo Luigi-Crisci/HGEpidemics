@@ -9,13 +9,13 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "αₑ":0.0,
     "edges_selection_strategy":null,
     "path":null,
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"lockdown",
@@ -27,13 +27,13 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "αₑ":0.3,
     "edges_selection_strategy":"custom",
     "path":"data/got/NPIs/loc_by_checkins.data",
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"lockdown",
@@ -45,13 +45,13 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "αₑ":0.6,
     "edges_selection_strategy":"custom",
     "path":"data/got/NPIs/loc_by_checkins.data",
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"lockdown",
@@ -63,13 +63,13 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "αₑ":0.9,
     "edges_selection_strategy":"custom",
     "path":"data/got/NPIs/loc_by_checkins.data",
-    "intervention_start":10
+    "intervention_start":42
   },
   {
     "exp_id":"lockdown",
@@ -81,12 +81,12 @@
     "δ":15,
     "βd":0.2,
     "βᵢ":0.1,
-    "βₑ":0.06,
+    "βₑ":0.09,
     "γₑ":0.06,
     "γₐ":0.1,
     "αₑ":1.0,
     "edges_selection_strategy":"custom",
     "path":"data/got/NPIs/loc_by_checkins.data",
-    "intervention_start":10
+    "intervention_start":42
   }
 ]
