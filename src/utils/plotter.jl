@@ -95,7 +95,7 @@ function plot_infected_distribution(type::infected_not_isolated, simulation_data
                 marker = 1
             end
         end
-        legend(labels, fontsize="large", ncol=2)
+        legend(labels, fontsize="large", ncol=2,bbox_to_anchor=(1.05, 1.0), loc="upper left")
         plt.tight_layout()
         savefig("$(output_path)/$(mytitle)")
         println("Infected not isolated distribution -> saving figure in ... $(output_path)/$(mytitle)\n")
@@ -123,8 +123,8 @@ function plot_infected_distribution(type::infected_not_quarantined, simulation_d
             plot(exp.second.infected_not_quarantined_distribution, linestyle=linestyles[linestyle], marker=markers[marker], markevery=10, markersize=6.5)
     
             xlabel("Time intervals", fontweight="semibold", labelpad=10, fontsize="x-large")
-            ylabel("Δ = $(exp.second.Δ) hours \n Infected nodes in %", fontweight="semibold", fontsize="x-large", labelpad=10)
-            title("δ = $(exp.second.δ) minutes", pad=10, fontweight="semibold", fontsize="x-large")
+            ylabel("Infected nodes", fontweight="semibold", fontsize="x-large", labelpad=10)
+            title("Δ = $(exp.second.Δ) hours   δ = $(exp.second.δ) minutes", pad=10, fontweight="semibold", fontsize="x-large")
     
             tick_params(labelsize="large")
     
@@ -140,7 +140,11 @@ function plot_infected_distribution(type::infected_not_quarantined, simulation_d
                 marker = 1
             end
         end
-        legend(labels, fontsize="large", ncol=2)
+        
+        
+        # legend(labels, fontsize="large", ncol=1, bbox_to_anchor=(1.05, 1.0), loc="upper left")
+        legend(labels, fontsize="large", ncol=4, bbox_to_anchor=(0,1.18,1,0.2), loc="lower left",
+                mode="expand", borderaxespad=0)
         plt.tight_layout()
 
         savefig("$(output_path)/$(mytitle)")

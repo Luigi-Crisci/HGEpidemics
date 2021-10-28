@@ -2,7 +2,7 @@
   {
     "exp_id":"quarantine",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-noQua",
+    "label":"noQuar",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -18,7 +18,7 @@
   {
     "exp_id":"quarantine",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-Qua05",
+    "label":"Quar05",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -34,7 +34,7 @@
   {
     "exp_id":"quarantine",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-Qua10",
+    "label":"Quar10",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -50,7 +50,7 @@
   {
     "exp_id":"quarantine",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-Qua20",
+    "label":"Quar20",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -66,7 +66,7 @@
   {
     "exp_id":"quarantine",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-Qua60",
+    "label":"Quar60",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -82,7 +82,7 @@
   {
     "exp_id":"quarantine",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-Qua90",
+    "label":"Quar90",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,

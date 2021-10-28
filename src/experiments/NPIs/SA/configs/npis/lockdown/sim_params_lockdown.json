@@ -2,7 +2,7 @@
   {
     "exp_id":"lockdown",
     "exp":"direct-indirect",
-    "label":"Lock30-Schools",
+    "label":"Schools",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -20,7 +20,7 @@
   {
     "exp_id":"lockdown",
     "exp":"direct-indirect",
-    "label":"Lock30-Workplaces",
+    "label":"Workplaces",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -38,7 +38,7 @@
   {
     "exp_id":"lockdown",
     "exp":"direct-indirect",
-    "label":"Lock30-Schools-Workplaces",
+    "label":"Schools-Workplaces",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -56,7 +56,7 @@
   {
     "exp_id":"lockdown",
     "exp":"direct-indirect",
-    "label":"Lock30-Schools-100-Workplaces-50",
+    "label":"Schools-100-Workplaces-75",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -68,7 +68,7 @@
     "γₐ":0.1,
     "αₑ":0.3,
     "edges_selection_strategy":"most_loved",
-    "path":"/home/lcrisci/workspace/Hypergraphs-Epidemics/resources/datasets/Salerno/id_subsets/schools_100_workplaces_50.bin",
+    "path":"/home/lcrisci/workspace/Hypergraphs-Epidemics/resources/datasets/Salerno/id_subsets/schools_100_workplaces_75.bin",
     "intervention_start":50
   }
 ]

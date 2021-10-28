@@ -2,7 +2,7 @@
   {
     "exp_id":"tracing",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-noTracing",
+    "label":"noTracing",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -20,7 +20,7 @@
   {
     "exp_id":"tracing",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-Tracing25",
+    "label":"Tracing25",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -38,7 +38,7 @@
   {
     "exp_id":"tracing",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-Tracing50",
+    "label":"Tracing50",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -56,7 +56,7 @@
   {
     "exp_id":"tracing",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-Tracing75",
+    "label":"Tracing75",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,
@@ -74,7 +74,7 @@
   {
     "exp_id":"tracing",
     "exp":"direct-indirect",
-    "label":"Direct/Indirect-Tracing100",
+    "label":"Tracing100",
     "infected_percentage":0.2,
     "c":5,
     "Δ":4,

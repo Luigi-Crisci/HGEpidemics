@@ -673,6 +673,7 @@ function simulate(
                                 if abs(h[v, he.first] - h[u.first, he.first]) <= δ.value
 
                                     # v and u have met 
+                                    # ! Comment
                                     # after the application of an intervention
                                     if t > intervention_start
                                         agents_met[v, u.first] = 1
@@ -751,6 +752,7 @@ function simulate(
                         (isolation[v] == 1 || quarantine[v] == 1) && continue
 
                         # store that an agent has been in that location
+                        #! Comment 
                         # after the protective measure
                         if t > intervention_start
                             location_visited[v, he.first] = 1

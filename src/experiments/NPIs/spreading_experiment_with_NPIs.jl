@@ -192,7 +192,7 @@ for testtype in keys(test_data)
                 βₑ = test[:βₑ],
                 γₑ = test[:γₑ],
                 γₐ = test[:γₐ],
-                niter = 5,
+                niter = 1,
                 output_path = res_path,
                 store_me = false,
                 kwargs = npi_paramas
